@@ -2,35 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First Website</title>
+  <title>Number Guessing Game</title>
   <style>
     body {
-  background-color: #111;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 100px;
-}
-
-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 10px;
+      margin: 5px;
+    }
+    button {
+      cursor: pointer;
+      background-color: #ffcc00;
+      border: none;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
-
-  <h1>Hello World 🌍</h1>
-  <p id="text">Click the button!</p>
-
-  <button onclick="changeText()">Click me</button>
+  <H1>Hello everyone this is my website it has html, css and js on it I hope you like it</H1>
+  <h1>🎯 Number Guessing Game</h1>
+  <p>Guess a number between 1 and 100:</p>
+  <input type="number" id="guessInput" min="1" max="100">
+  <button onclick="checkGuess()">Guess</button>
+  <p id="message"></p>
+  <p id="attempts"></p>
 
   <script>
-    function changeText() {
-  document.getElementById("text").textContent = "You clicked the button 😎";
-}
+    // Generate a random number between 1 and 100
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let tries = 0;
+
+    function checkGuess() {
+      const guess = Number(document.getElementById("guessInput").value);
+      const message = document.getElementById("message");
+      const attempts = document.getElementById("attempts");
+      tries++;
+
+      if (!guess || guess < 1 || guess > 100) {
+        message.textContent = "❌ Please enter a number between 1 and 100!";
+        return;
+      }
+
+      if (guess === secretNumber) {
+        message.textContent = `🎉 Correct! The number was ${secretNumber}. You guessed it in ${tries} tries!`;
+      } else if (guess < secretNumber) {
+        message.textContent = "⬆️ Too low! Try a bigger number.";
+      } else {
+        message.textContent = "⬇️ Too high! Try a smaller number.";
+      }
+
+      attempts.textContent = `Attempts: ${tries}`;
+      document.getElementById("guessInput").value = "";
+      document.getElementById("guessInput").focus();
+    }
   </script>
 </body>
 </html>
